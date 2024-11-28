@@ -45,6 +45,18 @@ biting_fit_Cpip <- rstan::extract(biting_fit, permuted=T)$f_new[,3,]
 biting_fit_Cqui <- rstan::extract(biting_fit, permuted=T)$f_new[,4,]
 biting_fit_Ctar <- rstan::extract(biting_fit, permuted=T)$f_new[,5,]
 biting_fit_pop <- rstan::extract(biting_fit, permuted=T)$f_new_spec
+
+biting_fit_Cpal_Tmin <- rstan::extract(biting_fit, permuted=T)$Tmin[,2]
+biting_fit_Cpip_Tmin <- rstan::extract(biting_fit, permuted=T)$Tmin[,3]
+biting_fit_Cqui_Tmin <- rstan::extract(biting_fit, permuted=T)$Tmin[,4]
+biting_fit_Ctar_Tmin <- rstan::extract(biting_fit, permuted=T)$Tmin[,5]
+biting_fit_pop_Tmin <- rstan::extract(biting_fit, permuted=T)$Tmin_new
+
+biting_fit_Cpal_Tmax <- rstan::extract(biting_fit, permuted=T)$Tmax[,2]
+biting_fit_Cpip_Tmax <- rstan::extract(biting_fit, permuted=T)$Tmax[,2]
+biting_fit_Cqui_Tmax <- rstan::extract(biting_fit, permuted=T)$Tmax[,2]
+biting_fit_Ctar_Tmax <- rstan::extract(biting_fit, permuted=T)$Tmax[,2]
+biting_fit_pop_Tmax <- rstan::extract(biting_fit, permuted=T)$Tmax_new
 rm(biting_fit)
 
 # Adult mosquito lifespan
@@ -55,6 +67,13 @@ lf_fit_Cpip <- rstan::extract(lf_fit, permuted=T)$f_new[,4,]
 lf_fit_Cqui <- rstan::extract(lf_fit, permuted=T)$f_new[,5,]
 lf_fit_Cres <- rstan::extract(lf_fit, permuted=T)$f_new[,6,]
 lf_fit_Ctar <- rstan::extract(lf_fit, permuted=T)$f_new[,7,]
+
+lf_fit_Cmol_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,2]
+lf_fit_Cpal_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,3]
+lf_fit_Cpip_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,4]
+lf_fit_Cqui_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,5]
+lf_fit_Cres_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,6]
+lf_fit_Ctar_Tmax <- rstan::extract(lf_fit, permuted=T)$Tmax[,7]
 rm(lf_fit)
 
 # introduce cut off at lowest observed temperature (14°C)
@@ -85,6 +104,20 @@ dev_fit_Cpip <- rstan::extract(dev_fit, permuted=T)$f_new[,7,]
 dev_fit_Cqui <- rstan::extract(dev_fit, permuted=T)$f_new[,8,]
 dev_fit_Cres <- rstan::extract(dev_fit, permuted=T)$f_new[,9,]
 dev_fit_Ctar <- rstan::extract(dev_fit, permuted=T)$f_new[,11,]
+
+dev_fit_Cmol_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,5]
+dev_fit_Cpal_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,6]
+dev_fit_Cpip_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,7]
+dev_fit_Cqui_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,8]
+dev_fit_Cres_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,9]
+dev_fit_Ctar_Tmin <- rstan::extract(dev_fit, permuted=T)$Tmin[,11]
+
+dev_fit_Cmol_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,5]
+dev_fit_Cpal_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,6]
+dev_fit_Cpip_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,7]
+dev_fit_Cqui_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,8]
+dev_fit_Cres_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,9]
+dev_fit_Ctar_Tmax <- rstan::extract(dev_fit, permuted=T)$Tmax[,11]
 rm(dev_fit)
 
 # Egg viability
@@ -93,6 +126,16 @@ egg_viability_fit_Cmol <- rstan::extract(egg_viability_fit, permuted=T)$f_new[,1
 egg_viability_fit_Cpal <- rstan::extract(egg_viability_fit, permuted=T)$f_new[,2,]
 egg_viability_fit_Cqui <- rstan::extract(egg_viability_fit, permuted=T)$f_new[,3,]
 egg_viability_fit_pop <- rstan::extract(egg_viability_fit, permuted=T)$f_new_spec
+
+egg_viability_fit_Cmol_Tmin <- rstan::extract(egg_viability_fit, permuted=T)$Tmin[,1]
+egg_viability_fit_Cpal_Tmin <- rstan::extract(egg_viability_fit, permuted=T)$Tmin[,2]
+egg_viability_fit_Cqui_Tmin <- rstan::extract(egg_viability_fit, permuted=T)$Tmin[,3]
+egg_viability_fit_pop_Tmin <- rstan::extract(egg_viability_fit, permuted=T)$Tmin_new
+
+egg_viability_fit_Cmol_Tmax <- rstan::extract(egg_viability_fit, permuted=T)$Tmax[,1]
+egg_viability_fit_Cpal_Tmax <- rstan::extract(egg_viability_fit, permuted=T)$Tmax[,2]
+egg_viability_fit_Cqui_Tmax <- rstan::extract(egg_viability_fit, permuted=T)$Tmax[,3]
+egg_viability_fit_pop_Tmax <- rstan::extract(egg_viability_fit, permuted=T)$Tmax_new
 rm(egg_viability_fit)
 
 # Mosquito infection probability
@@ -114,6 +157,20 @@ sur_fit_Cpip <- rstan::extract(sur_fit, permuted=T)$f_new[,9,]
 sur_fit_Cqui <- rstan::extract(sur_fit, permuted=T)$f_new[,10,]
 sur_fit_Cres <- rstan::extract(sur_fit, permuted=T)$f_new[,11,]
 sur_fit_Ctar <- rstan::extract(sur_fit, permuted=T)$f_new[,13,]
+
+sur_fit_Cmol_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,7]
+sur_fit_Cpal_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,8]
+sur_fit_Cpip_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,9]
+sur_fit_Cqui_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,10]
+sur_fit_Cres_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,11]
+sur_fit_Ctar_Tmin <- rstan::extract(sur_fit, permuted=T)$Tmin[,13]
+
+sur_fit_Cmol_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,7]
+sur_fit_Cpal_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,8]
+sur_fit_Cpip_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,9]
+sur_fit_Cqui_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,10]
+sur_fit_Cres_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,11]
+sur_fit_Ctar_Tmax <- rstan::extract(sur_fit, permuted=T)$Tmax[,13]
 rm(sur_fit)
 
 # set temperature points at which model outputs were generated on
@@ -161,7 +218,9 @@ Tmax  = function(x){
 # Cx. pipiens
 
 # calculate R0 samples from the trait samples
-R0_main_Cpip = R0_main_f(biting_fit_Cpip, infprob_fit_pop, EIP_fit_Cpip, lf_fit_Cpip, omega, sur_fit_Cpip, ER, egg_viability_fit_pop, dev_fit_Cpip)
+R0_main_Cpip = R0_main_f(biting_fit_Cpip, infprob_fit_pop, EIP_fit_Cpip, 
+                         lf_fit_Cpip, omega, sur_fit_Cpip, ER, 
+                         egg_viability_fit_pop, dev_fit_Cpip)
 
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
@@ -213,27 +272,28 @@ R0_main_Cpip_Tmax_0975 = quantile(R0_main_Cpip_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Cpip <- ggplot() +
-  geom_line(df_Cpip, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") + 
-  geom_line(data = data.frame(x = c(R0_main_Cpip_peaks_0025, R0_main_Cpip_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cpip_Tmin_0025, R0_main_Cpip_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cpip_Tmax_0025, R0_main_Cpip_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Cpip_Tmin_mean, R0_main_Cpip_peaks_mean, R0_main_Cpip_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Cpip, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpip_peaks_0025, R0_main_Cpip_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpip_Tmin_0025, R0_main_Cpip_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpip_Tmax_0025, R0_main_Cpip_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Cpip_Tmin_mean, R0_main_Cpip_peaks_mean, R0_main_Cpip_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. pipiens")))) +
-  theme(axis.text = element_text(size = 14),  
+  theme(axis.text = element_text(size = 10),  
         axis.title = element_blank(), 
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) 
-
 
 # Cx. quinquefasciatus
 
 # calculate R0 samples from the trait samples
-R0_main_Cqui = R0_main_f(biting_fit_Cqui, infprob_fit_pop, EIP_fit_pop, lf_fit_Cqui, omega, sur_fit_Cqui, ER, egg_viability_fit_Cqui, dev_fit_Cqui)
+R0_main_Cqui = R0_main_f(biting_fit_Cqui, infprob_fit_pop, EIP_fit_pop, 
+                         lf_fit_Cqui, omega, sur_fit_Cqui, ER, 
+                         egg_viability_fit_Cqui, dev_fit_Cqui)
 
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
@@ -285,25 +345,28 @@ R0_main_Cqui_Tmax_0975 = quantile(R0_main_Cqui_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Cqui <- ggplot() +
-  geom_line(df_Cqui, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") + 
-  geom_line(data = data.frame(x = c(R0_main_Cqui_peaks_0025, R0_main_Cqui_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cqui_Tmin_0025, R0_main_Cqui_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cqui_Tmax_0025, R0_main_Cqui_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Cqui_Tmin_mean, R0_main_Cqui_peaks_mean, R0_main_Cqui_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Cqui, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") + 
+  geom_line(data = data.frame(x = c(R0_main_Cqui_peaks_0025, R0_main_Cqui_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cqui_Tmin_0025, R0_main_Cqui_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cqui_Tmax_0025, R0_main_Cqui_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Cqui_Tmin_mean, R0_main_Cqui_peaks_mean, R0_main_Cqui_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. quinquefasciatus")))) +
-  theme(axis.text = element_text(size = 14),  
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+  theme(axis.text = element_text(size = 10),  
+        axis.title = element_blank(), 
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) 
 
 # Cx. pipiens molestus
 
 # calculate R0 samples from the trait samples
-R0_main_Cmol = R0_main_f(biting_fit_pop, infprob_fit_pop, EIP_fit_pop, lf_fit_Cmol, omega, sur_fit_Cmol, ER, egg_viability_fit_Cmol, dev_fit_Cmol)
+R0_main_Cmol = R0_main_f(biting_fit_pop, infprob_fit_pop, EIP_fit_pop, 
+                         lf_fit_Cmol, omega, sur_fit_Cmol, ER, 
+                         egg_viability_fit_Cmol, dev_fit_Cmol)
 
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
@@ -355,30 +418,33 @@ R0_main_Cmol_Tmax_0975 = quantile(R0_main_Cmol_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Cmol <- ggplot() +
-  geom_line(df_Cmol, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") + 
-  geom_line(data = data.frame(x = c(R0_main_Cmol_peaks_0025, R0_main_Cmol_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cmol_Tmin_0025, R0_main_Cmol_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cmol_Tmax_0025, R0_main_Cmol_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Cmol_Tmin_mean, R0_main_Cmol_peaks_mean, R0_main_Cmol_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Cmol, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") + 
+  geom_line(data = data.frame(x = c(R0_main_Cmol_peaks_0025, R0_main_Cmol_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cmol_Tmin_0025, R0_main_Cmol_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cmol_Tmax_0025, R0_main_Cmol_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Cmol_Tmin_mean, R0_main_Cmol_peaks_mean, R0_main_Cmol_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. pipiens molestus")))) +
-  theme(axis.text = element_text(size = 14),  
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_blank(), 
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) 
 
 # Cx. pipiens pallens
 
 # calculate R0 samples from the trait samples
-R0_main_Cpal = R0_main_f(biting_fit_Cpal, infprob_fit_pop, EIP_fit_pop, lf_fit_Cpal, omega, sur_fit_Cpal, ER, egg_viability_fit_Cpal, dev_fit_Cpal)
+R0_main_Cpal = R0_main_f(biting_fit_Cpal, infprob_fit_pop, EIP_fit_pop, 
+                         lf_fit_Cpal, omega, sur_fit_Cpal, ER, 
+                         egg_viability_fit_Cpal, dev_fit_Cpal)
 
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
 if(any(rowSums(R0_main_Cpal <= 0) == ncol(R0_main_Cpal))){
-  print("lol")
+  print("only zeros")
   R0_main_Cpal <- R0_main_Cpal[-which(rowSums(R0_main_Cpal <= 0) == ncol(R0_main_Cpal)),]
 }
 
@@ -425,19 +491,19 @@ R0_main_Cpal_Tmax_0975 = quantile(R0_main_Cpal_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Cpal <- ggplot() +
-  geom_line(df_Cpal, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") + 
-  geom_line(data = data.frame(x = c(R0_main_Cpal_peaks_0025, R0_main_Cpal_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cpal_Tmin_0025, R0_main_Cpal_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cpal_Tmax_0025, R0_main_Cpal_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Cpal_Tmin_mean, R0_main_Cpal_peaks_mean, R0_main_Cpal_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
-  geom_point(data = data.frame(x = c(R0_main_Cpal_peaks_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Cpal, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpal_peaks_0025, R0_main_Cpal_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpal_Tmin_0025, R0_main_Cpal_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cpal_Tmax_0025, R0_main_Cpal_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Cpal_Tmin_mean, R0_main_Cpal_peaks_mean, R0_main_Cpal_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. pipiens pallens")))) +
-  theme(axis.text = element_text(size = 14),  
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+  theme(axis.text = element_text(size = 10),  
+        axis.title = element_blank(),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
@@ -449,7 +515,7 @@ R0_main_Cres = R0_main_f(biting_fit_pop, infprob_fit_pop, EIP_fit_pop, lf_fit_Cr
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
 if(any(rowSums(R0_main_Cres <= 0) == ncol(R0_main_Cres))){
-  print("lol")
+  print("only zeros")
   R0_main_Cres <- R0_main_Cres[-which(rowSums(R0_main_Cres <= 0) == ncol(R0_main_Cres)),]
 }
 
@@ -496,30 +562,33 @@ R0_main_Cres_Tmax_0975 = quantile(R0_main_Cres_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Cres <- ggplot() +
-  geom_line(df_Cres, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") + 
-  geom_line(data = data.frame(x = c(R0_main_Cres_peaks_0025, R0_main_Cres_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cres_Tmin_0025, R0_main_Cres_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Cres_Tmax_0025, R0_main_Cres_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Cres_Tmin_mean, R0_main_Cres_peaks_mean, R0_main_Cres_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Cres, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") + 
+  geom_line(data = data.frame(x = c(R0_main_Cres_peaks_0025, R0_main_Cres_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cres_Tmin_0025, R0_main_Cres_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Cres_Tmax_0025, R0_main_Cres_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Cres_Tmin_mean, R0_main_Cres_peaks_mean, R0_main_Cres_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(4.9,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. restuans")))) +
-  theme(axis.text = element_text(size = 14),  
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_blank(),  
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) 
 
 # Cx. tarsalis
 
 # calculate R0 samples from the trait samples
-R0_main_Ctar = R0_main_f(biting_fit_Ctar, infprob_fit_pop, EIP_fit_Ctar, lf_fit_Ctar, omega, sur_fit_Ctar, ER, egg_viability_fit_pop, dev_fit_Ctar)
+R0_main_Ctar = R0_main_f(biting_fit_Ctar, infprob_fit_pop, EIP_fit_Ctar, 
+                         lf_fit_Ctar, omega, sur_fit_Ctar, ER, 
+                         egg_viability_fit_pop, dev_fit_Ctar)
 
 # check for and remove any sample relative R0 samples has only zeros across whole 
 # temperature range which would make Tmin, Tmax, Topt calculations nonsensical
 if(any(rowSums(R0_main_Ctar <= 0) == ncol(R0_main_Ctar))){
-  print("lol")
+  print("only zeros")
   R0_main_Ctar <- R0_main_Ctar[-which(rowSums(R0_main_Ctar <= 0) == ncol(R0_main_Ctar)),]
 }
 
@@ -566,18 +635,19 @@ R0_main_Ctar_Tmax_0975 = quantile(R0_main_Ctar_Tmax, probs=c(0.975))
 # plot mean relative R0 temperature response with mean and 95% CIs for 
 # Tmin, Topt, Tmax
 plot_Ctar <- ggplot() +
-  geom_line(df_Ctar, mapping = aes(x = x, y = mean),linewidth=0.8, color="red") +
-  geom_line(data = data.frame(x = c(R0_main_Ctar_peaks_0025, R0_main_Ctar_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Ctar_Tmin_0025, R0_main_Ctar_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_line(data = data.frame(x = c(R0_main_Ctar_Tmax_0025, R0_main_Ctar_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.8,alpha=1) + 
-  geom_point(data = data.frame(x = c(R0_main_Ctar_Tmin_mean, R0_main_Ctar_peaks_mean, R0_main_Ctar_Tmax_mean), y = 0), aes(x = x, y = y), size=2) + 
+  geom_line(df_Ctar, mapping = aes(x = x, y = mean),linewidth=0.6, color="black") +
+  geom_line(data = data.frame(x = c(R0_main_Ctar_peaks_0025, R0_main_Ctar_peaks_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Ctar_Tmin_0025, R0_main_Ctar_Tmin_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_line(data = data.frame(x = c(R0_main_Ctar_Tmax_0025, R0_main_Ctar_Tmax_0975), y = 0), aes(x = x, y = y), linewidth=0.6,alpha=1, color="red") + 
+  geom_point(data = data.frame(x = c(R0_main_Ctar_Tmin_mean, R0_main_Ctar_peaks_mean, R0_main_Ctar_Tmax_mean), y = 0), aes(x = x, y = y), color="red") + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   ggtitle(expression(paste(italic("Cx. tarsalis")))) +
-  theme(axis.text = element_text(size = 14),  
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_blank(),  
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
@@ -585,18 +655,40 @@ plot_Ctar <- ggplot() +
 
 plot_list = list(plot_Cpip, plot_Cqui, plot_Cmol, plot_Cpal, plot_Cres, plot_Ctar)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B', 'C', 'D', 'E', 'F'))
 
 y.grob <- textGrob(expression("Transmission suitability " * R[0]^rel), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/R0.pdf", width=8.27, height=9.27)
 grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
+
+#ggsave("Figures/R0.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob)),
+#       width = 6, height = 6.9, 
+#       dpi = 600, units = "in", compression = "lzw")
+
+## dataframes that summarize which traits determined upper and lower 
+## temperature limits for R0
+
+# for Table SI2.9:
+trait_determining_Tmin <- rbind(R0_main_Cpip_trait_determining_Tmin,
+                                R0_main_Cqui_trait_determining_Tmin,
+                                R0_main_Cmol_trait_determining_Tmin,
+                                R0_main_Cpal_trait_determining_Tmin,
+                                R0_main_Cres_trait_determining_Tmin,
+                                R0_main_Ctar_trait_determining_Tmin)
+
+# for Table SI2.10:
+trait_determining_Tmax <- rbind(R0_main_Cpip_trait_determining_Tmax,
+                                R0_main_Cqui_trait_determining_Tmax,
+                                R0_main_Cmol_trait_determining_Tmax,
+                                R0_main_Cpal_trait_determining_Tmax,
+                                R0_main_Cres_trait_determining_Tmax,
+                                R0_main_Ctar_trait_determining_Tmax)
 
 ### Comparison to relative R0 models using alternative mosquito abundance approximations
 
@@ -612,6 +704,21 @@ M_alt1_f <- function(omega, surJ, ER, a, EV, lf, devJ){
          omega^2 * EFD * EV * (devJ^2/muL) * lf^2 * (1 - 1/(lf * omega * EFD * surEJ + cc)),
          0)
 }
+
+# following is just a reforumlation for sanity check (yields same result)
+#M_alt1_f <- function(omega, surJ, ER, a, EV, lf, devJ){
+#  EFD = ER * a
+#  surEJ = surJ * EV
+#  #muL = ifelse(surJ>0 & devJ>0, 
+#  #             ifelse(surJ<0.99, pmin(devJ * (1-surJ)/(surJ), 1), 
+#  #                    pmin(devJ * (1-0.99)/(0.99), 1)), 
+#  #             1)
+#  fac = ifelse(surJ<0.99, (surJ)/(1-surJ), 
+#               (0.99)/(1-0.99))
+#  ifelse(1/(lf * omega * EFD * surEJ + cc) <1,
+#         omega^2 * EFD * EV * (devJ) * fac * lf^2 * (1 - 1/(lf * omega * EFD * surEJ + cc)),
+#         0)
+#}
 
 R0_alt1_f = function(a, b, EIP, lf, omega, surJ, ER, EV, devJ){
   muM = 1/(lf+cc)
@@ -786,11 +893,11 @@ R0_alt4_Cpip_peaks_0975 = quantile(R0_alt4_Cpip_peaks, probs=c(0.975))
 ## Collect mean temperature response of the different relative R0 models in one
 ## dataframe
 df_Cpip_alt = data.frame(x = rep(temp, 5), 
-                         model = c(rep("main",length(temp)),
-                                   rep("model 1",length(temp)),
-                                   rep("model 2",length(temp)),
-                                   rep("model 3",length(temp)),
-                                   rep("model 4",length(temp))),
+                         model = c(rep("Main",length(temp)),
+                                   rep("Model 1",length(temp)),
+                                   rep("Model 2",length(temp)),
+                                   rep("Model 3",length(temp)),
+                                   rep("Model 4",length(temp))),
                          mean = c(R0_main_Cpip_mean/max(R0_main_Cpip_mean),
                                   R0_alt1_Cpip_mean/max(R0_alt1_Cpip_mean),
                                   R0_alt2_Cpip_mean/max(R0_alt2_Cpip_mean),
@@ -799,26 +906,26 @@ df_Cpip_alt = data.frame(x = rep(temp, 5),
 
 ## Plot mean temperature response of the different relative R0 models
 plot_Cpip_alt <- ggplot(df_Cpip_alt, aes(x = x, y = mean, color=model)) +
-  geom_line(linewidth = 0.8) + 
-
+  geom_line(linewidth = 0.6) + 
   scale_x_continuous(breaks = seq(0,45,5), limits = c(5,40)) +
   theme_bw() +
   labs(title = expression(paste(italic("Cx. pipiens"))),
        x = "Temperature (°C)",
        y = expression("Transmission suitability " * R[0]^rel), 
        color = "Mosquito model") + 
-  scale_color_manual(values = c("red", "orange", "black", "blue", "#785EF0")) +
-  theme(axis.text = element_text(size = 14), 
-        axis.title = element_text(size = 14), 
-        legend.title = element_text(size = 10),
-        legend.position = c(.2,.7),
-        legend.text = element_text(size = 10),
-        plot.title = element_text(size=14),
+  #scale_color_manual(values = c("red", "orange", "black", "blue", "#785EF0")) +
+  theme(axis.text = element_text(size = 10), 
+        axis.title = element_text(size = 10), 
+        legend.title = element_text(size = 8),
+        legend.position = c(.2,.75),
+        legend.key.height = unit(0.7, "lines"),
+        legend.text = element_text(size = 8),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
 ## Collect statistics about Topt for the different model in one dataframe
-df_alt_peaks = data.frame(label = c("5main","4model1","3model2","2model3","1model4"), 
+df_alt_peaks = data.frame(label = c("5Main","4Model1","3Model2","2Model3","1Model4"), 
                           mean = c(R0_main_Cpip_peaks_mean, R0_alt1_Cpip_peaks_mean, 
                                    R0_alt2_Cpip_peaks_mean, R0_alt3_Cpip_peaks_mean, 
                                    R0_alt4_Cpip_peaks_mean), 
@@ -831,21 +938,19 @@ df_alt_peaks = data.frame(label = c("5main","4model1","3model2","2model3","1mode
 
 ## Plot statistics about Topt for the different model
 plot_Cpip_alt_peaks <- ggplot(df_alt_peaks, aes(x=label, y=mean, ymin=lower, ymax=upper, color=label)) +
-  geom_pointrange(linewidth=0.8) +
+  geom_pointrange(linewidth=0.6) +
   coord_flip() +
   guides(color = "none") +
   theme_bw() +
-  scale_color_manual(values = c("#785EF0", "blue", "black", "orange", "red")) +
-  scale_x_discrete(labels = c("model4","model3","model2","model1","main")) +
-  labs(title = expression(paste("optimal Temperature for ", italic("Cx. pip. ") * R[0]^rel)),
+  scale_x_discrete(labels = c("Model4","Model3","Model2","Model1","Main")) +
+  labs(title = expression(paste("Optimal temperature for ", italic("Cx. pip. ") * R[0]^rel)),
        y = "Temperature (°C)") + 
-  theme(axis.text = element_text(size = 14), 
-        axis.title = element_text(size = 14), # Adjust axis title size
+  theme(axis.text = element_text(size = 10), 
+        axis.title = element_text(size = 10), 
         axis.title.y = element_blank(),
-        #legend.key.size = unit(1.5, "lines"),   # Larger legend key size
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 14),
-        plot.title = element_text(size=14),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
@@ -853,12 +958,16 @@ plot_Cpip_alt_peaks <- ggplot(df_alt_peaks, aes(x=label, y=mean, ymin=lower, yma
 
 plot_list = list(plot_Cpip_alt, plot_Cpip_alt_peaks)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B'))
 
-#pdf("Figures/R0_compare_models_Cpip.pdf", width=8.3, height=4)
 plot_grid
-#dev.off()
+
+#ggsave("Figures/R0_compare_models_Cpip.tiff", 
+#       plot = plot_grid, 
+#       width = 6.3, height = 2.9, units = "in", dpi = 600,
+#       compression = "lzw")
+
 
 ### relative R0 calculations including Topt with different levels of 
 ### between-experiment variability for mosquito infection probability and EIP 
@@ -924,24 +1033,30 @@ df_Cpip_variances_peaks = data.frame(label = c("3reduced","2main","1increased"),
 
 # Plot Topt statistics for the different between-experiment variability (Figure SI4.5)
 plot_Cpip_variances_peaks <- ggplot(df_Cpip_variances_peaks, aes(x=label, y=mean, ymin=lower, ymax=upper, color=label)) +
-  geom_pointrange(linewidth=0.8) +
+  geom_pointrange(linewidth=0.6) +
   coord_flip() +
   guides(color = "none") +
   theme_bw() +
-  scale_color_manual(values = c("red","orange", "black")) +
-  scale_x_discrete(labels = c("small var.","moderate (main) var.","large var.")) +
-  labs(title = expression(paste("optimal Temperature for ", italic("Cx. pipiens ") * R[0]^rel)),
+  scale_color_manual(values = c("red","orange", "blue")) +
+  scale_x_discrete(labels = c("Large var.","Moderate (main) var.","Small var.")) +
+  labs(title = expression(paste("Optimal temperature for ", italic("Cx. pipiens ") * R[0]^rel)),
        y = "Temperature (°C)") + 
-  theme(axis.text = element_text(size = 11), 
-        axis.title = element_text(size = 11),
+  theme(axis.text = element_text(size = 10), 
+        axis.title = element_text(size = 10),
         axis.title.y = element_blank(),
-        legend.text = element_text(size = 11),
-        legend.title = element_text(size = 11),
-        plot.title = element_text(size=11),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size=10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank())
 
-#pdf("Figures/R0_compare_variabilities_Cpip.pdf", width=4.5, height=3)
 plot_Cpip_variances_peaks 
-#dev.off()
+
+#ggsave("Figures/R0_compare_variabilities_Cpip.tiff", 
+#       plot = plot_Cpip_variances_peaks, 
+#       width = 4.5, height = 2.9, units = "in", dpi = 600,
+#       compression = "lzw")
+
+
+
 

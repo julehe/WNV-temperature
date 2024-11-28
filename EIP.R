@@ -17,6 +17,7 @@ library(posterior)
 library(grid)
 library(gridExtra)
 library(ggtext)
+library(ggplot2)
 
 # enable parallel computation and allow STAN to automatically overwrite models
 options(mc.cores = parallel::detectCores())
@@ -32,8 +33,8 @@ data_EIP <- read.csv("data/EIP_data.csv")
 data_EIP <- data_EIP %>% 
   filter(quantity == "percentage transmitting of infected" | quantity == "percentage transmitting of exposed")
 # transform data that is given as "percentage transmitting of exposed" into
-# "percentage transmitting of infected" by dividing the predicted "percentage infected"
-data_EIP$trait[data_EIP$quantity == "percentage transmitting of exposed"] = data_EIP$trait[data_EIP$quantity == "percentage transmitting of exposed"]/data_EIP$prediction.infected[data_EIP$quantity == "percentage transmitting of exposed"]
+# "percentage transmitting of infected" by dividing by the "percentage infected"
+data_EIP$trait[data_EIP$quantity == "percentage transmitting of exposed"] = data_EIP$trait[data_EIP$quantity == "percentage transmitting of exposed"]/data_EIP$percentage_infected[data_EIP$quantity == "percentage transmitting of exposed"]
 
 ## prepare input data for STAN model
 
@@ -116,12 +117,12 @@ df_temp <- data.frame(tmp = temp, trait = f_new_spec_mean,
 plot_EIP_pop <- ggplot(data = df_temp, mapping = aes(x = tmp, y = trait,
                                                      ymin = lowerCI, 
                                                      ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(title = "Population-level") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.title = element_blank(),
         panel.grid.major = element_blank(),
@@ -155,25 +156,29 @@ df_temp <- data.frame(dpi = dpi_new, trait = p_new_mean, tmp = as.factor(c(rep(c
 df_data_temp <- data.frame(x = data_temp$dpi, y = data_temp$trait, tmp = as.factor(data_temp$temperature))
 
 # plot
-plot1 <- ggplot(df_temp) +
-  geom_line(mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.8) +
-  geom_ribbon(mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
-  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp)) +
+plot1 <- ggplot() +
+  geom_line(df_temp, mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.6) +
+  geom_ribbon(df_temp, mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
+  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp), size = 1.1) +
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(title = expression(paste("WNV WN02 in ",italic("Cx. pipiens")))) +  
   scale_color_discrete(labels = c("15°C", "18°C", "22°C", "32°C")) +
+  geom_richtext(aes(x = 92, y = 0.15), 
+                label = paste("n =", nrow(df_data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 12),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position = c(.85,.725),
         legend.title = element_blank(),  
-        legend.text = element_text(size = 9),
-        legend.key.size = unit(0.4, "cm"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.3, "cm"),
         plot.margin = unit(c(5.5, 8, 5.5, 5.5), "pt"))
-
 
 # NY99 in Cx. pipiens (Kilpatrick et al.):
 
@@ -194,23 +199,28 @@ df_temp <- data.frame(dpi = dpi_new, trait = p_new_mean, tmp = as.factor(c(rep(c
 df_data_temp <- data.frame(x = data_temp$dpi, y = data_temp$trait, tmp = as.factor(data_temp$temperature))
 
 # plot
-plot2 <- ggplot(df_temp) +
-  geom_line(mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.8) +
-  geom_ribbon(mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
-  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp)) +
+plot2 <- ggplot() +
+  geom_line(df_temp, mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.6) +
+  geom_ribbon(df_temp, mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
+  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp), size = 1.1) +
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(title = expression(paste("WNV NY99 in ",italic("Cx. pipiens")))) +  
   scale_color_discrete(labels = c("15°C", "18°C", "22°C", "32°C")) +
+  geom_richtext(aes(x = 92, y = 0.15), 
+                label = paste("n =", nrow(df_data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 12),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position=c(.85,.725),
         legend.title = element_blank(),  
-        legend.text = element_text(size = 9),
-        legend.key.size = unit(0.4, "cm"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.3, "cm"),
         plot.margin = unit(c(5.5, 8, 5.5, 5.5), "pt")) 
 
 # H442 in Cx. univittatus (Cornel et al.):
@@ -232,24 +242,29 @@ df_temp <- data.frame(dpi = dpi_new, trait = p_new_mean, tmp = as.factor(c(rep(c
 df_data_temp <- data.frame(x = data_temp$dpi, y = data_temp$trait, tmp = as.factor(data_temp$temperature))
 
 # plot
-plot3 <- ggplot(df_temp) +
-  geom_line(mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.8) +
-  geom_ribbon(mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
-  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color=tmp)) +
+plot3 <- ggplot() +
+  geom_line(df_temp, mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.6) +
+  geom_ribbon(df_temp, mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
+  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color=tmp), size = 1.1) +
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(title = expression(paste("WNV H442 in ",italic("Cx. univittatus")))) +  
   scale_color_discrete(labels = c("14°C", "18°C", "26°C", "30°C")) +
+  geom_richtext(aes(x = 92, y = 0.15), 
+                label = paste("n =", nrow(df_data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 12),
-        #axis.title = element_text(size = 12),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        #axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position=c(.85,.725),
         legend.title = element_blank(),  
-        legend.text = element_text(size = 9),
-        legend.key.size = unit(0.4, "cm"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.3, "cm"),
         plot.margin = unit(c(5.5, 8, 5.5, 5.5), "pt")) 
 
 # NY99 in Cx. tarsalis (Reisen et al.):
@@ -271,40 +286,43 @@ df_temp <- data.frame(dpi = dpi_new, trait = p_new_mean, tmp = as.factor(c(rep(c
 df_data_temp <- data.frame(x = data_temp$dpi, y = data_temp$trait, tmp = as.factor(data_temp$temperature))
 
 # plot
-plot4 <- ggplot(df_temp) +
-  geom_line(mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.8) +
-  geom_ribbon(mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
-  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp)) +
+plot4 <- ggplot() +
+  geom_line(df_temp, mapping = aes(x = dpi, y = trait, group = tmp, color = tmp), linewidth = 0.6) +
+  geom_ribbon(df_temp, mapping = aes(x = dpi, ymin = lowerCI, ymax = upperCI, group = tmp, fill = tmp), alpha = 0.15,show.legend = FALSE) +
+  geom_point(df_data_temp, mapping = aes(x=x, y=y, group = tmp, color = tmp), size = 1.1) +
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(title = expression(paste("WNV NY99 in ",italic("Cx. tarsalis")))) +  
   scale_color_discrete(labels = c("14°C", "18°C", "22°C", "26°C", "30°C")) +
+  geom_richtext(aes(x = 92, y = 0.85), 
+                label = paste("n =", nrow(df_data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 12),
-        #axis.title = element_text(size = 12),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        #axis.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        legend.position=c(.85,.25),
+        legend.position=c(.85,.27),
         legend.title = element_blank(),  
-        legend.text = element_text(size = 9),
-        legend.key.size = unit(0.4, "cm"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.3, "cm"),
         plot.margin = unit(c(5.5, 8, 5.5, 5.5), "pt")) 
 
 # Combine plots showing DPI vs transmitting mosquitoes (part of Figure 12)
 plot_list = list(plot1, plot2, plot3, plot4)
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, 
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A','B','C','D'))
 
 y.grob <- textGrob(expression(paste("Percentage of transmitting mosquitoes")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
-x.grob <- textGrob("Days post infection (dpi)", 
-                   gp=gpar(col="black", fontsize=14))
+x.grob <- textGrob("Days post exposure (dpe)", 
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/EIP1.pdf", width=8.3, height=7)
-grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
+panel1 <- grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
 
 # Plots showing EIP vs temperature at the experiment-level
 f_new <- summary(fit, pars="f_new")$summary 
@@ -323,15 +341,17 @@ df_temp <- data.frame(tmp = temp, trait = c(f_new_mean[,1],f_new_mean[,2],f_new_
 plot_EIP_WN02Cpip <- ggplot(data = filter(df_temp,experiment == "1pip_WN02"), 
                                 mapping = aes(x = tmp, y = trait,
                                               ymin = lowerCI, ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(y = "", x = "", title = expression(paste("WNV WN02 in ",italic("Cx. pipiens")))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.position=c(.7,.8),
+        legend.text = element_text(size = 8),
         legend.title = element_blank(),
+        legend.key.size = unit(0.3, "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
   coord_cartesian(ylim = c(0, 250)) 
@@ -343,7 +363,7 @@ plot_EIP_exp <- ggplot(data = df_temp, mapping = aes(x = tmp, y = trait,
                                                      ymin = lowerCI, 
                                                      ymax = upperCI,
                                                      fill = experiment)) +
-  geom_line(linewidth = 0.8) +
+  geom_line(linewidth = 0.6) +
   geom_ribbon(color=NA, alpha=0.15)+
   scale_color_manual(values = c("black","orange","blue","green4"),
                      labels = c(expression(paste("WNV WN02 in ",italic("Cx. pipiens"))),
@@ -354,27 +374,39 @@ plot_EIP_exp <- ggplot(data = df_temp, mapping = aes(x = tmp, y = trait,
                     guide = "none") +
   labs(title = "", x = "Temperature (°C)") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.x = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
         axis.title.y = element_blank(),
-        legend.position=c(.7,.8),
+        legend.position=c(.6,.78),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.4, "cm"),
         legend.title = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
   coord_cartesian(ylim = c(0, 250)) 
 
 # prepare plot EIP vs temperature for all experiments as plot grid to fit format of DPI plots (part of Figure 12)
-plot_list = list(plot_EIP_exp)
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, 
+plot_list2 = list(plot_EIP_exp)
+plot_grid2 = cowplot::plot_grid(plotlist = plot_list2, ncol=1, label_size = 12, 
                                align = "h", axis = "b", labels = c('E'))
 
-y.grob <- textGrob(expression(paste("Extrinsic incubation period (days)")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+y.grob2 <- textGrob(expression(paste("Extrinsic incubation period (days)")), 
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
-#pdf("Figures/EIP2.pdf", width=8.3, height=4)
-grid.arrange(arrangeGrob(plot_grid, left = y.grob))
-#dev.off()
+panel2 <- grid.arrange(arrangeGrob(plot_grid2, left = y.grob2))
+
+final_panel <- grid.arrange(
+  panel1, panel2,
+  layout_matrix = rbind(
+    c(1, 1),   
+    c(2, NA)   
+  ),
+  heights = c(2, 1.1)  # adjust height of panel2 relative to panel1
+)
+
+#ggsave("Figures/EIP.tiff", plot = final_panel, width = 6, height = 7.2, 
+#       dpi = 600, units = "in", compression = "lzw")
 
 ### Comparison of models with different levels of between-experiment variability
 
@@ -400,12 +432,12 @@ df_temp <- data.frame(tmp = temp, trait = f_new_spec_mean,
 plot_EIP_pop_increased_var <- ggplot(data = df_temp, mapping = aes(x = tmp, y = trait,
                                                      ymin = lowerCI, 
                                                      ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(title = "Population-level") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.title = element_blank(),
         panel.grid.major = element_blank(),
@@ -429,12 +461,12 @@ df_temp <- data.frame(tmp = temp, trait = c(f_new_mean[,1],f_new_mean[,2],f_new_
 plot_EIP_WN02Cpip_increased_var <- ggplot(data = filter(df_temp,experiment == "1pip_WN02"), 
                                 mapping = aes(x = tmp, y = trait,
                                               ymin = lowerCI, ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(y = "", x = "", title = expression(paste("WNV WN02 in ",italic("Cx. pipiens")))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.position=c(.7,.8),
         legend.title = element_blank(),
@@ -464,12 +496,12 @@ df_temp <- data.frame(tmp = temp, trait = f_new_spec_mean,
 plot_EIP_pop_reduced_var <- ggplot(data = df_temp, mapping = aes(x = tmp, y = trait,
                                                                    ymin = lowerCI, 
                                                                    ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(title = "Population-level") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.title = element_blank(),
         panel.grid.major = element_blank(),
@@ -493,12 +525,12 @@ df_temp <- data.frame(tmp = temp, trait = c(f_new_mean[,1],f_new_mean[,2],f_new_
 plot_EIP_WN02Cpip_reduced_var <- ggplot(data = filter(df_temp,experiment == "1pip_WN02"), 
                                           mapping = aes(x = tmp, y = trait,
                                                         ymin = lowerCI, ymax = upperCI)) +
-  geom_line(linewidth = 0.8,color="red") +
-  geom_ribbon(fill="red", alpha=0.15)+
+  geom_line(linewidth = 0.6,color="black") +
+  geom_ribbon(fill="black", alpha=0.15)+
   labs(y = "", x = "", title = expression(paste("WNV WN02 in ",italic("Cx. pipiens")))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
         axis.title = element_blank(),
         legend.position=c(.7,.8),
         legend.title = element_blank(),
@@ -511,18 +543,21 @@ plot_list = list(plot_EIP_WN02Cpip_reduced_var, plot_EIP_pop_reduced_var,
                  plot_EIP_WN02Cpip, plot_EIP_pop,
                  plot_EIP_WN02Cpip_increased_var, plot_EIP_pop_increased_var)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B', 
                                                                    'C', 'D',
                                                                    'E', 'F'))
 
 y.grob <- textGrob(expression(paste("Extrinsic incubation period (days)")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/EIP_different_levels_experiment_variability.pdf", width=8.27, height=9.27)
 grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
+
+#ggsave("Figures/EIP_different_levels_experiment_variability.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob)),
+#       width = 6, height = 6.73, 
+#       dpi = 600, units = "in", compression = "lzw")
 

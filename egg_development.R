@@ -17,6 +17,7 @@ library(posterior)
 library(cowplot)
 library(grid)
 library(gridExtra)
+library(ggplot2)
 
 # enable parallel computation and allow STAN to automatically overwrite models
 options(mc.cores = parallel::detectCores())
@@ -161,135 +162,214 @@ lines(temp,f_new_spec[,8],lty=2,lwd=2)
 #Cmel plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,1], 
                      lowerCI = f_new_0025[,1], upperCI = f_new_0975[,1])
+
+n_exp = length(unique(data_egg_dev_Cmel$experiment_id))
+n_total = nrow(data_egg_dev_Cmel)
+
 plot1 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cmel, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cmel, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culiseta melanura"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cmol plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,2], 
                      lowerCI = f_new_0025[,2], upperCI = f_new_0975[,2])
+
+n_exp = length(unique(data_egg_dev_Cmol$experiment_id))
+n_total = nrow(data_egg_dev_Cmol)
+
 plot2 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cmol, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cmol, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex pipiens molestus"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cpal plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,3], 
                      lowerCI = f_new_0025[,3], upperCI = f_new_0975[,3])
+
+n_exp = length(unique(data_egg_dev_Cpal$experiment_id))
+n_total = nrow(data_egg_dev_Cpal)
+
 plot3 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cpal, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cpal, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex pipiens pallens"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cpip plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,4], 
                      lowerCI = f_new_0025[,4], upperCI = f_new_0975[,4])
+
+n_exp = length(unique(data_egg_dev_Cpip$experiment_id))
+n_total = nrow(data_egg_dev_Cpip)
+
 plot4 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cpip, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cpip, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex pipiens"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cqui plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,5], 
                      lowerCI = f_new_0025[,5], upperCI = f_new_0975[,5])
+
+n_exp = length(unique(data_egg_dev_Cqui$experiment_id))
+n_total = nrow(data_egg_dev_Cqui)
+
 plot5 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cqui, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cqui, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex quinquefasciatus"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cres plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,6], 
                      lowerCI = f_new_0025[,6], upperCI = f_new_0975[,6])
+
+n_exp = length(unique(data_egg_dev_Cres$experiment_id))
+n_total = nrow(data_egg_dev_Cres)
+
 plot6 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cres, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cres, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex restuans"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5))
 
 #Cthei plot
 temp_df = data.frame(temp = temp, mean = f_new_mean[,7], 
                      lowerCI = f_new_0025[,7], upperCI = f_new_0975[,7])
+
+n_exp = length(unique(data_egg_dev_Cthei$experiment_id))
+n_total = nrow(data_egg_dev_Cthei)
+
 plot7 = ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_egg_dev_Cthei, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_egg_dev_Cthei, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(title= expression(paste(italic("Culex theileri"))))+
+  geom_richtext(aes(x = 0, y = 1.35), 
+                label = paste("n<sub>exp</sub> =", n_exp,
+                              "<br>n<sub>total</sub> =", n_total),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1.5)) 
 
 # Plot six Culex species together (Figure 6)
 plot_list = list(plot4, plot5, plot2, plot3, plot6)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B', 'C', 'D', 'E', 'F'))
 
 y.grob <- textGrob(expression(paste("Egg to larva development rate (days"^{-1},")")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/egg_development.pdf", width=8.27, height=9.27)
 grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
 
+#ggsave("Figures/egg_development.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob)),
+#       width = 6, height = 6.9, 
+#       dpi = 600, units = "in", compression = "lzw")

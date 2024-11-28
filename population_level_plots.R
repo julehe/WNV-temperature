@@ -40,13 +40,13 @@ df_EIP <- data.frame(x = temp, y = colMeans(EIP_fit_pop, na.rm = TRUE),
 plot_EIP_pop <- ggplot(data = df_EIP, mapping = aes(x = x, y = y,
                                      ymin = ymin, 
                                      ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = "Extr. incubation period (days)") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -70,13 +70,13 @@ df_biting <- data.frame(x = temp, y = colMeans(biting_fit_pop, na.rm = TRUE),
 plot_biting_pop <- ggplot(data = df_biting, mapping = aes(x = x, y = y,
                                                     ymin = ymin, 
                                                     ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = expression(paste("Adult biting rate  (days"^{-1},")"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -105,13 +105,13 @@ df_lf <- data.frame(x = temp, y = colMeans(lf_fit_pop, na.rm = TRUE),
 plot_lf_pop <- ggplot(data = df_lf, mapping = aes(x = x, y = y,
                                                           ymin = ymin, 
                                                           ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = "Adult lifespan  (days)") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -135,13 +135,13 @@ df_dev_egg <- data.frame(x = temp, y = colMeans(dev_egg_fit_pop, na.rm = TRUE),
 plot_dev_egg_pop <- ggplot(data = df_dev_egg, mapping = aes(x = x, y = y,
                                                   ymin = ymin, 
                                                   ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = expression(paste("Egg dev. rate (days"^{-1},")"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -165,13 +165,13 @@ df_dev <- data.frame(x = temp, y = colMeans(dev_fit_pop, na.rm = TRUE),
 plot_dev_pop <- ggplot(data = df_dev, mapping = aes(x = x, y = y,
                                                     ymin = ymin, 
                                                     ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = expression(paste("Juv. dev. rate (days"^{-1},")"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -195,13 +195,13 @@ df_egg_viability <- data.frame(x = temp, y = colMeans(egg_viability_fit_pop, na.
 plot_egg_viability_pop <- ggplot(data = df_egg_viability, mapping = aes(x = x, y = y,
                                                                 ymin = ymin, 
                                                                 ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = "Egg viability") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -227,13 +227,13 @@ df_infprob <- data.frame(x = temp, y = colMeans(infprob_fit_pop, na.rm = TRUE),
 plot_infprob_pop <- ggplot(data = df_infprob, mapping = aes(x = x, y = y,
                                                                         ymin = ymin, 
                                                                         ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = "Mosq. infection probability") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -257,13 +257,13 @@ df_sur <- data.frame(x = temp, y = colMeans(sur_fit_pop, na.rm = TRUE),
 plot_sur_pop <- ggplot(data = df_sur, mapping = aes(x = x, y = y,
                                                                 ymin = ymin, 
                                                                 ymax = ymax)) +
-  geom_line(linewidth = 0.8, col = "red") +
-  geom_ribbon(fill="red", alpha=0.15) +
+  geom_line(linewidth = 0.6, col = "black") +
+  geom_ribbon(fill="black", alpha=0.15) +
   labs(title = "", x = "Temperature (°C)", y = "Juvenile survival") + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
-        axis.title.y = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
+        axis.text = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
         axis.title.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
@@ -274,29 +274,35 @@ plot_sur_pop <- ggplot(data = df_sur, mapping = aes(x = x, y = y,
 plot_list = list(plot_dev_pop, plot_sur_pop, plot_lf_pop, 
                  plot_egg_viability_pop, plot_biting_pop, plot_dev_egg_pop)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, 
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A','B',
                                                                    'C','D',
                                                                    'E','F'))
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/population_level_life_history.pdf", width=8.27, height=9.27)
 grid.arrange(arrangeGrob(plot_grid, bottom = x.grob))
-#dev.off()
+
+#ggsave("Figures/population_level_life_history.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, bottom = x.grob)),
+#       width = 6, height = 6.9, 
+#       dpi = 600, units = "in", compression = "lzw")
 
 # plot all population-level temperature response estimates of the pathogen-related
 # traits together (Figure SI4.2)
 plot_list = list(plot_infprob_pop, plot_EIP_pop)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, 
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A','B'))
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/population_level_pathogen_related.pdf", width=8.27, height=3.5)
 grid.arrange(arrangeGrob(plot_grid, bottom = x.grob))
-#dev.off()
+
+#ggsave("Figures/population_level_pathogen_related.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, bottom = x.grob)),
+#       width = 6, height = 2.5, 
+#       dpi = 600, units = "in", compression = "lzw")
 

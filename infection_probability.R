@@ -17,6 +17,7 @@ library(posterior)
 library(grid)
 library(gridExtra)
 library(ggtext)
+library(ggplot2)
 
 # enable parallel computation and allow STAN to automatically overwrite models
 options(mc.cores = parallel::detectCores())
@@ -96,15 +97,15 @@ f_new_0975 <- matrix(f_new[,8],nrow=data$N_new) # 97.5% quantile of model fit
 temp_df = data.frame(temp = temp, mean = f_new_mean, 
                      lowerCI = f_new_0025, upperCI = f_new_0975)
 plot_pop_level <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
   labs(x= "", y= "",
        title = expression(paste("WNV in ",italic("Culex")," (population-level)"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
   coord_cartesian(ylim = c(0, 1))
@@ -127,18 +128,24 @@ data_temp <- data_infprob %>% filter(experiment_id %in% id)
 
 # plot
 plot1 <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_temp, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_temp, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(x="",y="",
        title = expression(paste("WNV NY99 in ",italic("Culex pipiens"), " (Dohm)"))) + 
+  geom_richtext(aes(x = 0, y = 0.95), 
+                label = paste("n =", nrow(data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1))
 
 # WN02 in Cx. pipiens (Kilpatrick et al.) 
@@ -155,18 +162,24 @@ data_temp <- data_infprob %>% filter(experiment_id %in% id)
 
 # plot
 plot2 <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_temp, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_temp, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(x="",y="",
        title = expression(paste("WNV WN02 in ",italic("Culex pipiens"), " (Kilpatrick)"))) + 
+  geom_richtext(aes(x = 0, y = 0.95), 
+                label = paste("n =", nrow(data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1))
 
 # NY99 in Cx. pipiens (Kilpatrick et al.) 
@@ -183,35 +196,44 @@ data_temp <- data_infprob %>% filter(experiment_id %in% id)
 
 # plot
 plot3 <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_temp, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_temp, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(x="",y="",
        title = expression(paste("WNV NY99 in ",italic("Culex pipiens"), " (Kilpatrick)"))) + 
+  geom_richtext(aes(x = 0, y = 0.95), 
+                label = paste("n =", nrow(data_temp)),
+                size = 3, color = "black",
+                fill = NA, label.color = NA,  # Transparent background
+                hjust = 0) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1))
 
 # Plot all three experiments together (Figure 11)
 plot_list = list(plot1, plot2, plot3)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B', 'C', 'D'))
 
 y.grob <- textGrob(expression(paste("Mosquito infection probability")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/infection_probability.pdf", width=8.27, height=6.18)
 grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
+
+ggsave("Figures/infection_probability.tiff", 
+       plot = grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob)),
+       width = 6, height = 4.6, 
+       dpi = 600, units = "in", compression = "lzw")
 
 ### Comparison of models with different levels of between-experiment variability
 
@@ -234,15 +256,15 @@ f_new_0975 <- matrix(f_new[,8],nrow=data$N_new) # 97.5% quantile of model fit
 temp_df = data.frame(temp = temp, mean = f_new_mean, 
                      lowerCI = f_new_0025, upperCI = f_new_0975)
 plot_pop_level_increased_var <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
   labs(x= "", y= "",
        title = expression(paste("WNV in ",italic("Culex")," (population-level)"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
   coord_cartesian(ylim = c(0, 1))
@@ -260,18 +282,19 @@ data_temp <- data_infprob %>% filter(experiment_id %in% id)
 # plot for WN02 in Cx. pipiens (Kilpatrick et al.) with increased between-experiment 
 # between-experiment variability
 plot2_increased_var <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_temp, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_temp, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(x="",y="",
        title = expression(paste("WNV WN02 in ",italic("Culex pipiens"), " (Kilpatrick)"))) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1))
 
 # Fit or load alternative STAN model with reduced between-experiment standard deviation
@@ -293,15 +316,15 @@ f_new_0975 <- matrix(f_new[,8],nrow=data$N_new) # 97.5% quantile of model fit
 temp_df = data.frame(temp = temp, mean = f_new_mean, 
                      lowerCI = f_new_0025, upperCI = f_new_0975)
 plot_pop_level_reduced_var <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
   labs(x= "", y= "",
        title = expression(paste("WNV in ",italic("Culex")," (population-level)"))) + 
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
   coord_cartesian(ylim = c(0, 1))
@@ -321,18 +344,19 @@ data_temp <- data_infprob %>% filter(experiment_id %in% id)
 # plot for WN02 in Cx. pipiens (Kilpatrick et al.) with reduced between-experiment 
 # between-experiment variability
 plot2_reduced_var <- ggplot() + 
-  geom_line(data = temp_df, aes(x = temp, y = mean), color = "red", linewidth = 0.8) +
+  geom_line(data = temp_df, aes(x = temp, y = mean), color = "black", linewidth = 0.6) +
   geom_ribbon(data = temp_df, 
-              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "red", alpha = 0.15) +
-  geom_point(data = data_temp, aes(x = temperature, y = trait), size = 1.5, shape = 19) +
+              aes(x = temp, ymin = lowerCI, ymax = upperCI), fill = "black", alpha = 0.15) +
+  geom_point(data = data_temp, aes(x = temperature, y = trait, color=as.factor(experiment_id)), size = 0.9, shape = 19) +
   labs(x="",y="",
        title = expression(paste("WNV WN02 in ",italic("Culex pipiens"), " (Kilpatrick)"))) +
   theme_bw() +
-  theme(plot.title = element_text(size = 14),
+  theme(plot.title = element_text(size = 10),
         axis.title = element_blank(),
-        axis.text = element_text(size = 14),
+        axis.text = element_text(size = 10),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) +
+        panel.grid.minor = element_blank(),
+        legend.position = "none") +
   coord_cartesian(ylim = c(0, 1))
 
 # Combine model comparison plots together (Figure SI4.3)
@@ -340,19 +364,22 @@ plot_list = list(plot2_reduced_var, plot_pop_level_reduced_var,
                  plot2, plot_pop_level,
                  plot2_increased_var, plot_pop_level_increased_var)
 
-plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2,
+plot_grid = cowplot::plot_grid(plotlist = plot_list, ncol=2, label_size = 12,
                                align = "h", axis = "b", labels = c('A', 'B', 
                                                                    'C', 'D',
                                                                    'E', 'F'))
 
 y.grob <- textGrob(expression(paste("Mosquito infection probability")), 
-                   gp=gpar(col="black", fontsize=14), rot=90)
+                   gp=gpar(col="black", fontsize=10), rot=90)
 
 x.grob <- textGrob("Temperature (°C)", 
-                   gp=gpar(col="black", fontsize=14))
+                   gp=gpar(col="black", fontsize=10))
 
-#pdf("Figures/infection_probability_different_levels_experiment_variability.pdf", width=8.27, height=9.27)
 grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob))
-#dev.off()
+
+#ggsave("Figures/infection_probability_different_levels_experiment_variability.tiff", 
+#       plot = grid.arrange(arrangeGrob(plot_grid, left = y.grob, bottom = x.grob)),
+#       width = 6, height = 6.9, 
+#       dpi = 600, units = "in", compression = "lzw")
 
 
