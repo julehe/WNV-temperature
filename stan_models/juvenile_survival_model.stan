@@ -89,7 +89,7 @@ model {
   
   sigma_exp_Tmin ~ normal(0,10);
   sigma_exp_Tmax ~ normal(0,10);
-  sigma_exp_q ~ normal(0,1)
+  sigma_exp_q ~ normal(0,1);
   
   // priors
   Tmin_raw ~ std_normal();
