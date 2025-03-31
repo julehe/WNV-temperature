@@ -73,9 +73,6 @@ data <- list(Nspecies = length(unique(data_sur$species_id)), # number of species
 #            data = data, iter=4000, chains=4, 
 #            control = list(adapt_delta=0.8, max_treedepth=12))
 
-#fit <- stan(file = 'code/larva to adult survival (quadratic)/independent priors (ip)/study effect (se)/homosced error (hom)/surLA_ip_se_hom_test_qlogn.stan',
-#            data = data, iter=4000, chains=4, control = list(adapt_delta=0.99, max_treedepth=12))
-
 # save fitted model 
 #saveRDS(fit, "model_fits/juvenile_survival_fit.rds")
 
